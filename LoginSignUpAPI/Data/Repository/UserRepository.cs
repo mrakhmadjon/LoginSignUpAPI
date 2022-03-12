@@ -34,7 +34,7 @@ namespace LoginSignUpAPI.Data.Repository
         public async Task<UserModel> LoginAsync(string email, string password)
         {
             string hashedPass = password.ToHash();
-           var user = await _users.FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
+           var user = await _users.FirstOrDefaultAsync(p => p.Email == email && p.Password == hashedPass);
           return user;
         }
 
@@ -55,6 +55,7 @@ namespace LoginSignUpAPI.Data.Repository
 
         public async Task<UserModel> UpdateAsync(UserModel user)
         {
+            user.Password = user.Password.ToHash();
             var entry = _users.Update(user);
             await _userDb.SaveChangesAsync();
             return entry.Entity;
