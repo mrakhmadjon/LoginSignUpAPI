@@ -48,7 +48,7 @@ namespace LoginSignUpAPI.Data.Repository
                 Password = user.Password.ToHash()
             };
              var entry = await _users.AddAsync(user1);
-           await  _userDb.SaveChangesAsync();
+             await  _userDb.SaveChangesAsync();
 
             return entry.Entity;
         }
