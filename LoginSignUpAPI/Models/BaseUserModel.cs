@@ -14,7 +14,7 @@ namespace LoginSignUpAPI.Models
 
         [RegularExpression(@"^[a-zA-Z0-9_.-]+@[gmail|yandex]+.[a-zA-Z0-9-.]+$",
                     ErrorMessage = "Must be a valid email")]
-        [StringLength(16,
+        [StringLength(50,
                     ErrorMessage = "Must be between 5 and 50 characters",
                     MinimumLength = 5)]
         [DataType(DataType.EmailAddress)]

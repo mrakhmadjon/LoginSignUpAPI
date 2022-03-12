@@ -50,5 +50,12 @@ namespace LoginSignUpAPI.Controllers
         {
             return Ok(await _userRepository.GetAllAsync());
         }
+
+        [HttpDelete]
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            return Ok(await _userRepository.DeleteAsync(p => p.Id == id));
+        }
     }
 }

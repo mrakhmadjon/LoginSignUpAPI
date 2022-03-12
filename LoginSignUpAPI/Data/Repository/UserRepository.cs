@@ -4,7 +4,9 @@ using LoginSignUpAPI.Extensions;
 using LoginSignUpAPI.Models.Common;
 using LoginSignUpAPI.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace LoginSignUpAPI.Data.Repository
@@ -18,6 +20,19 @@ namespace LoginSignUpAPI.Data.Repository
         {
             _userDb = userDb;   
             _users = userDb.Set<UserModel>();
+
+        }
+
+        public async Task<bool> DeleteAsync(Expression<Func<UserModel, bool>> expression)
+        {
+            var entry = await _users.FirstOrDefaultAsync(expression);
+            if (entry is null)
+                return false;
+
+            _users.Remove(entry);
+            await _userDb.SaveChangesAsync();
+
+            return true;
 
         }
 
